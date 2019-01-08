@@ -3,6 +3,7 @@ package edu.cnm.deepdive;
 import java.security.SecureRandom;
 import java.util.Comparator;
 import java.util.Random;
+import java.util.function.Function;
 import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
 import java.util.stream.IntStream;
@@ -32,6 +33,12 @@ public class WeirdStream {
               result = o1 - o2;
             }
               return result;
+          }
+        })
+        .map(new Function<Integer, String>() {
+          @Override
+          public String apply(Integer integer) {
+            return Integer.toBinaryString(integer);
           }
         })
         .forEach(System.out::println);
