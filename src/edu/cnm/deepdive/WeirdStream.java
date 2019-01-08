@@ -8,8 +8,21 @@ import java.util.stream.IntStream;
 
 public class WeirdStream {
 
+  private Random rng;
+
   public static void main(String[] args) {
-    IntStream.generate(new RandomSupplier())
+    IntStream.generate(new IntSupplier() {
+      private Random rng;
+
+      {
+        rng = new Random(-1); // Reproducible sequence.
+      }
+
+      @Override
+      public int getAsInt() {
+        return rng.nextInt();
+      }
+    })
         .limit(1000).forEach(System.out::println);
 
   }
